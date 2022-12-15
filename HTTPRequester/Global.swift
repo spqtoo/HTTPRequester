@@ -33,6 +33,16 @@ extension IdentifiableProtocol {
     }
 }
 
-enum StateRequest {
-    case base, detailed
+enum StateRequest: Int {
+    case base
+    case detailed
+    
+    var countSections: Int {
+        switch self {
+        case .base:
+            return 4
+        case .detailed:
+            return 5
+        }
+    }
 }

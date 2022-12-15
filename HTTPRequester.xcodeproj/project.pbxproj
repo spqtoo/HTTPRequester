@@ -9,9 +9,10 @@
 /* Begin PBXBuildFile section */
 		C414B553290B149600664696 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C414B552290B149600664696 /* MainTabBarController.swift */; };
 		C417B1CE290DF7F9001C5F63 /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = C417B1CD290DF7F9001C5F63 /* R.generated.swift */; };
-		C417B1D1290DFA9B001C5F63 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = C417B1D0290DFA9B001C5F63 /* Project.swift */; };
-		C42D19AB2934E44B00624B91 /* CreateNewRequestFooterCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42D19AA2934E44B00624B91 /* CreateNewRequestFooterCollectionView.swift */; };
+		C42D19AB2934E44B00624B91 /* CreateNewRequestQueryParamsFooterCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42D19AA2934E44B00624B91 /* CreateNewRequestQueryParamsFooterCollectionView.swift */; };
 		C42D19AD2934F3B700624B91 /* CreateNewRequestCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42D19AC2934F3B700624B91 /* CreateNewRequestCollectionViewCell.swift */; };
+		C4453462293FCB4B00AC9967 /* CreateNewRequestHeadersParamsFooterCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4453461293FCB4B00AC9967 /* CreateNewRequestHeadersParamsFooterCollectionView.swift */; };
+		C4453467293FF38900AC9967 /* CreateNewRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4453466293FF38900AC9967 /* CreateNewRequestModel.swift */; };
 		C44F6213291E7466006818C6 /* QuickRequestTableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44F6212291E7466006818C6 /* QuickRequestTableViewHeader.swift */; };
 		C44F6215291E77D9006818C6 /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44F6214291E77D9006818C6 /* Global.swift */; };
 		C4724ABD290DAA1900775C22 /* ProjectsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4724ABC290DAA1900775C22 /* ProjectsModel.swift */; };
@@ -21,7 +22,7 @@
 		C486F1CF290AB86E00398DDE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C486F1CE290AB86E00398DDE /* SceneDelegate.swift */; };
 		C486F1D6290AB86F00398DDE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C486F1D5290AB86F00398DDE /* Assets.xcassets */; };
 		C486F1D9290AB86F00398DDE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C486F1D7290AB86F00398DDE /* LaunchScreen.storyboard */; };
-		C487FA7B292BD5B100C9805E /* CreateNewRequestAnotherHeadersCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C487FA7A292BD5B100C9805E /* CreateNewRequestAnotherHeadersCollectionView.swift */; };
+		C487FA7B292BD5B100C9805E /* CreateNewRequestQueryParamsHeaderCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C487FA7A292BD5B100C9805E /* CreateNewRequestQueryParamsHeaderCollectionView.swift */; };
 		C4C093F2292101DF001FD2AE /* CreateNewQuickRequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C093F1292101DF001FD2AE /* CreateNewQuickRequestViewController.swift */; };
 		C4C093F429211B65001FD2AE /* CreateNewRequestStartHeaderCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C093F329211B65001FD2AE /* CreateNewRequestStartHeaderCollectionView.swift */; };
 		C4F8976A29199E340053AF6F /* QuickRequestsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F8976929199E340053AF6F /* QuickRequestsTableViewCell.swift */; };
@@ -36,9 +37,10 @@
 		92C3A55BAA6D9AF84E77E448 /* Pods_HTTPRequester.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HTTPRequester.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C414B552290B149600664696 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		C417B1CD290DF7F9001C5F63 /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = "<group>"; };
-		C417B1D0290DFA9B001C5F63 /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
-		C42D19AA2934E44B00624B91 /* CreateNewRequestFooterCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewRequestFooterCollectionView.swift; sourceTree = "<group>"; };
+		C42D19AA2934E44B00624B91 /* CreateNewRequestQueryParamsFooterCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewRequestQueryParamsFooterCollectionView.swift; sourceTree = "<group>"; };
 		C42D19AC2934F3B700624B91 /* CreateNewRequestCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewRequestCollectionViewCell.swift; sourceTree = "<group>"; };
+		C4453461293FCB4B00AC9967 /* CreateNewRequestHeadersParamsFooterCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewRequestHeadersParamsFooterCollectionView.swift; sourceTree = "<group>"; };
+		C4453466293FF38900AC9967 /* CreateNewRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewRequestModel.swift; sourceTree = "<group>"; };
 		C44F6212291E7466006818C6 /* QuickRequestTableViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickRequestTableViewHeader.swift; sourceTree = "<group>"; };
 		C44F6214291E77D9006818C6 /* Global.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
 		C4724ABC290DAA1900775C22 /* ProjectsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsModel.swift; sourceTree = "<group>"; };
@@ -50,7 +52,7 @@
 		C486F1D5290AB86F00398DDE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C486F1D8290AB86F00398DDE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C486F1DA290AB86F00398DDE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C487FA7A292BD5B100C9805E /* CreateNewRequestAnotherHeadersCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewRequestAnotherHeadersCollectionView.swift; sourceTree = "<group>"; };
+		C487FA7A292BD5B100C9805E /* CreateNewRequestQueryParamsHeaderCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewRequestQueryParamsHeaderCollectionView.swift; sourceTree = "<group>"; };
 		C4C093F1292101DF001FD2AE /* CreateNewQuickRequestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewQuickRequestViewController.swift; sourceTree = "<group>"; };
 		C4C093F329211B65001FD2AE /* CreateNewRequestStartHeaderCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewRequestStartHeaderCollectionView.swift; sourceTree = "<group>"; };
 		C4F8976929199E340053AF6F /* QuickRequestsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickRequestsTableViewCell.swift; sourceTree = "<group>"; };
@@ -84,9 +86,38 @@
 		C417B1CF290DFA83001C5F63 /* Entitys */ = {
 			isa = PBXGroup;
 			children = (
-				C417B1D0290DFA9B001C5F63 /* Project.swift */,
+				C4724ABC290DAA1900775C22 /* ProjectsModel.swift */,
+				C4453466293FF38900AC9967 /* CreateNewRequestModel.swift */,
 			);
 			path = Entitys;
+			sourceTree = "<group>";
+		};
+		C4453463293FCE7400AC9967 /* Headers */ = {
+			isa = PBXGroup;
+			children = (
+				C4C093F329211B65001FD2AE /* CreateNewRequestStartHeaderCollectionView.swift */,
+				C487FA7A292BD5B100C9805E /* CreateNewRequestQueryParamsHeaderCollectionView.swift */,
+			);
+			path = Headers;
+			sourceTree = "<group>";
+		};
+		C4453464293FCE9700AC9967 /* Footers */ = {
+			isa = PBXGroup;
+			children = (
+				C42D19AA2934E44B00624B91 /* CreateNewRequestQueryParamsFooterCollectionView.swift */,
+				C4453461293FCB4B00AC9967 /* CreateNewRequestHeadersParamsFooterCollectionView.swift */,
+			);
+			path = Footers;
+			sourceTree = "<group>";
+		};
+		C4453465293FCEB000AC9967 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				C4F8976929199E340053AF6F /* QuickRequestsTableViewCell.swift */,
+				C44F6212291E7466006818C6 /* QuickRequestTableViewHeader.swift */,
+				C42D19AC2934F3B700624B91 /* CreateNewRequestCollectionViewCell.swift */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 		C4724ABE290DBB9000775C22 /* Projects */ = {
@@ -101,7 +132,6 @@
 		C4724AC2290DBBF200775C22 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				C4724ABC290DAA1900775C22 /* ProjectsModel.swift */,
 				C4FEE94A290BFF6B000DAEE5 /* ProjectsViewController.swift */,
 			);
 			path = ViewControllers;
@@ -165,12 +195,9 @@
 		C4F8976729199B5E0053AF6F /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				C4F8976929199E340053AF6F /* QuickRequestsTableViewCell.swift */,
-				C44F6212291E7466006818C6 /* QuickRequestTableViewHeader.swift */,
-				C4C093F329211B65001FD2AE /* CreateNewRequestStartHeaderCollectionView.swift */,
-				C487FA7A292BD5B100C9805E /* CreateNewRequestAnotherHeadersCollectionView.swift */,
-				C42D19AA2934E44B00624B91 /* CreateNewRequestFooterCollectionView.swift */,
-				C42D19AC2934F3B700624B91 /* CreateNewRequestCollectionViewCell.swift */,
+				C4453465293FCEB000AC9967 /* Cells */,
+				C4453464293FCE9700AC9967 /* Footers */,
+				C4453463293FCE7400AC9967 /* Headers */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -340,17 +367,18 @@
 				C4FEE94B290BFF6B000DAEE5 /* ProjectsViewController.swift in Sources */,
 				C417B1CE290DF7F9001C5F63 /* R.generated.swift in Sources */,
 				C4F8976A29199E340053AF6F /* QuickRequestsTableViewCell.swift in Sources */,
-				C417B1D1290DFA9B001C5F63 /* Project.swift in Sources */,
 				C42D19AD2934F3B700624B91 /* CreateNewRequestCollectionViewCell.swift in Sources */,
 				C44F6215291E77D9006818C6 /* Global.swift in Sources */,
+				C4453462293FCB4B00AC9967 /* CreateNewRequestHeadersParamsFooterCollectionView.swift in Sources */,
 				C4724ABD290DAA1900775C22 /* ProjectsModel.swift in Sources */,
 				C4C093F2292101DF001FD2AE /* CreateNewQuickRequestViewController.swift in Sources */,
-				C487FA7B292BD5B100C9805E /* CreateNewRequestAnotherHeadersCollectionView.swift in Sources */,
-				C42D19AB2934E44B00624B91 /* CreateNewRequestFooterCollectionView.swift in Sources */,
+				C487FA7B292BD5B100C9805E /* CreateNewRequestQueryParamsHeaderCollectionView.swift in Sources */,
+				C42D19AB2934E44B00624B91 /* CreateNewRequestQueryParamsFooterCollectionView.swift in Sources */,
 				C4FEE94D290BFFB1000DAEE5 /* QuickRequestsViewController.swift in Sources */,
 				C414B553290B149600664696 /* MainTabBarController.swift in Sources */,
 				C486F1CF290AB86E00398DDE /* SceneDelegate.swift in Sources */,
 				C4FEE949290BFEF3000DAEE5 /* SettingsViewController.swift in Sources */,
+				C4453467293FF38900AC9967 /* CreateNewRequestModel.swift in Sources */,
 				C44F6213291E7466006818C6 /* QuickRequestTableViewHeader.swift in Sources */,
 				C4C093F429211B65001FD2AE /* CreateNewRequestStartHeaderCollectionView.swift in Sources */,
 				C4724AC5290DBC6400775C22 /* ProjectsTavleViewCell.swift in Sources */,

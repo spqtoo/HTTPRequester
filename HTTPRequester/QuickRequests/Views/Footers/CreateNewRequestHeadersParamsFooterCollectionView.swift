@@ -1,15 +1,15 @@
 //
-//  CreateNewRequestFooterCollectionView.swift
+//  HeadersParamsFooterCollectionView.swift
 //  HTTPRequester
 //
-//  Created by Степан Соловьёв on 28.11.2022.
+//  Created by Степан Соловьёв on 06.12.2022.
 //
 
 import UIKit
 
-final class CreateNewRequestFooterCollectionView: UICollectionReusableView, IdentifiableProtocol {
-    
-    weak var addParamDelegate: ReloadedCollectionForAddParamOrHeaderProtocolDelegate?
+final class CreateNewRequestHeadersParamsFooterCollectionView: UICollectionReusableView, IdentifiableProtocol {
+   
+//    weak var addParamDelegate: ReloadedCollectionForAddParamOrHeaderProtocolDelegate?
     
     private let containerForViews: UIView = {
         let view = UIView()
@@ -35,9 +35,9 @@ final class CreateNewRequestFooterCollectionView: UICollectionReusableView, Iden
     
     @objc
     func addCellFromFooter(_ sender: UITapGestureRecognizer) {
-        print("try to unwrap")
-        guard let delegate = self.addParamDelegate else { fatalError() }
-        delegate.addCellForCollectionViewAfterAddParam()
+//        print("try to unwrap")
+//        guard let delegate = self.addParamDelegate else { fatalError() }
+//        delegate.addCellForCollectionViewAfterAddParam(whatAdd: .queryParam)
         print("After Delegate Func")
     }
     
@@ -60,8 +60,6 @@ final class CreateNewRequestFooterCollectionView: UICollectionReusableView, Iden
         
         let tapOnFooter = UITapGestureRecognizer(target: self, action: #selector(addCellFromFooter(_:)))
         containerForViews.addGestureRecognizer(tapOnFooter)
-        
-        addParamDelegate?.addCellForCollectionViewAfterAddParam()
         
         NSLayoutConstraint.activate([
             containerForViews.widthAnchor.constraint(equalTo: labelOfAddParamOrHeader.widthAnchor, multiplier: 1.5),

@@ -12,7 +12,7 @@ final class ProjectsViewController: UIViewController {
     
     private let model = ProjectsViewControllerModel()
     
-    private var projects: [Project] {
+    private var projects: [ProjectStruct] {
         model.getProjects()
     }
     

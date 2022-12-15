@@ -9,6 +9,7 @@ import UIKit
 
 final class CreateNewRequestCollectionViewCell: UICollectionViewCell, IdentifiableProtocol {
     
+    weak var getTextFromCellDelegate: GetTextForKeyAndValueFromCellProtocolDelegate?
     
     private let containerForViews: UIView = {
         let view = UIView()
@@ -61,6 +62,8 @@ final class CreateNewRequestCollectionViewCell: UICollectionViewCell, Identifiab
         containerForViews.addSubview(textFieldForKey)
         containerForViews.addSubview(textFieldForValue)
         
+        textFieldForKey.delegate = self
+        textFieldForValue.delegate = self
 //        textFieldForURL.delegate = self
 //        textFieldForURL.becomeFirstResponder()
         
@@ -93,16 +96,21 @@ final class CreateNewRequestCollectionViewCell: UICollectionViewCell, Identifiab
     private func configureCell(){
         addSubview(containerForViews)
         configureContainerForView()
+        
         NSLayoutConstraint.activate([
             containerForViews.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             containerForViews.trailingAnchor.constraint(equalTo: self.trailingAnchor),
             containerForViews.topAnchor.constraint(equalTo: self.topAnchor),
             containerForViews.bottomAnchor.constraint(equalTo: self.bottomAnchor)
         ])
+        
     }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
+//        let specialData = CreateNewQuickRequestViewController()
+//        specialData.getTextFromCellDelegate = self
         
         configureCell()
     }
@@ -111,4 +119,11 @@ final class CreateNewRequestCollectionViewCell: UICollectionViewCell, Identifiab
         fatalError("init(coder:) has not been implemented")
     }
     
+}
+
+extension CreateNewRequestCollectionViewCell: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
 }

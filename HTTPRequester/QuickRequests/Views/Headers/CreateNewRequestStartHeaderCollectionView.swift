@@ -52,6 +52,7 @@ final class CreateNewRequestStartHeaderCollectionView: UICollectionReusableView,
         textField.returnKeyType = .default
         textField.autocapitalizationType = .words
         textField.autocorrectionType = .no
+        textField.keyboardType = .webSearch
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
     }()

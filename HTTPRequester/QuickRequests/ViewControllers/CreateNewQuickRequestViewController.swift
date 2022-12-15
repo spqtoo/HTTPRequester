@@ -7,6 +7,13 @@
 
 import UIKit
 
+protocol GetTextForKeyAndValueFromCellProtocolDelegate: AnyObject {
+    func getKeyFromTextField(keyTextField: String) -> String
+    func getValueFromTextField(valueTextField: String) -> String
+    
+//    var keyValueData: (String, String) { get set }
+}
+
 protocol SwitchStateRequestForContextMenuProtocolDelegate: AnyObject {
     func setupStateRequest(stateRequest value: StateRequest)
     func countSectionReload()
@@ -17,31 +24,17 @@ protocol ReloadedCollectionForAddParamOrHeaderProtocolDelegate: AnyObject {
 }
 
 
-final class CreateNewQuickRequestViewController: UIViewController,
-                                                    SwitchStateRequestForContextMenuProtocolDelegate,
-                                                    ReloadedCollectionForAddParamOrHeaderProtocolDelegate {
+final class CreateNewQuickRequestViewController: UIViewController {
     
-    func addCellForCollectionViewAfterAddParam() {
-        createRequestCollectionView.performBatchUpdates({
-            let indexPath = IndexPath(row: massiveArray.count, section: 1)
-            massiveArray.append(1) //add your object to data source first
-            createRequestCollectionView.insertItems(at: [indexPath])
-        }, completion: {  [weak self] _ in
-            self?.createRequestCollectionView.reloadData()
-            self?.view.setNeedsLayout()
-            self?.view.layoutIfNeeded()
-            print("Success reload data")
-        })
-    }
-    
-    func countSectionReload() { createRequestCollectionView.reloadData() }
-       
-    func setupStateRequest(stateRequest value: StateRequest) { self.stateRequest = value }
+    weak var getTextFromCellDelegate: GetTextForKeyAndValueFromCellProtocolDelegate?
     
     private var stateRequest: StateRequest = .base
     
-    private var massiveArray: [Int] = [4]
+    private var textFromKeyValueField = [String:String]()
     
+    private let modelQueryParam = QueryParamCollectionViewCellModel()
+    
+    private var queryParams = [String: String]()
     
     private lazy var createRequestCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -51,37 +44,43 @@ final class CreateNewQuickRequestViewController: UIViewController,
                                           height: 50)
         
         let colletctionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        //Cells
         colletctionView.register(CreateNewRequestCollectionViewCell.self,
                                  forCellWithReuseIdentifier: CreateNewRequestCollectionViewCell.identifier)
+        colletctionView.register(UICollectionViewCell.self,
+                                 forCellWithReuseIdentifier: "cell")
+        
+        //Headers
         colletctionView.register(CreateNewRequestStartHeaderCollectionView.self,
                                  forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
                                  withReuseIdentifier: CreateNewRequestStartHeaderCollectionView.identifier)
-        colletctionView.register(CreateNewRequestAnotherHeadersCollectionView.self,
+        colletctionView.register(CreateNewRequestQueryParamsHeaderCollectionView.self,
                                  forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-                                 withReuseIdentifier: CreateNewRequestAnotherHeadersCollectionView.identifier)
-        colletctionView.register(CreateNewRequestFooterCollectionView.self,
+                                 withReuseIdentifier: CreateNewRequestQueryParamsHeaderCollectionView.identifier)
+        
+        //Footers
+        colletctionView.register(CreateNewRequestQueryParamsFooterCollectionView.self,
                                  forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter,
-                                 withReuseIdentifier: CreateNewRequestFooterCollectionView.identifier)
+                                 withReuseIdentifier: CreateNewRequestQueryParamsFooterCollectionView.identifier)
+        colletctionView.register(CreateNewRequestHeadersParamsFooterCollectionView.self,
+                                 forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter,
+                                 withReuseIdentifier: CreateNewRequestHeadersParamsFooterCollectionView.identifier)
+        colletctionView.register(UICollectionReusableView.self,
+                                 forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter,
+                                 withReuseIdentifier: "footer")
         colletctionView.delegate = self
         colletctionView.dataSource = self
         colletctionView.backgroundColor = .clear
         colletctionView.translatesAutoresizingMaskIntoConstraints = false
         return colletctionView
     }()
-    
-//    @objc func addCellFunc(_ sender: UITapGestureRecognizer) {
-////        createRequestCollectionView.performBatchUpdates({
-////            let indexPath = IndexPath(row: massiveArray.count, section: 0)
-////            massiveArray.append(1) //add your object to data source first
-////            createRequestCollectionView.insertItems(at: [indexPath])
-////        }, completion: nil)
-//        print("AYE")
-//    }
    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         configureView(collectionView: createRequestCollectionView)
-//        view.resignFirstResponder()
+        queryParams = modelQueryParam.getQueryParamForCell()
+        
     }
     
     private func configureView(collectionView: UICollectionView) {
@@ -99,49 +98,67 @@ final class CreateNewQuickRequestViewController: UIViewController,
 
         ])
     }
-    
 }
 
 extension CreateNewQuickRequestViewController: UICollectionViewDataSource {
     
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        scrollView.showsVerticalScrollIndicator = false
-    }
-    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return massiveArray.count
-    }
-    
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        switch stateRequest {
-        case .base:
-            return 3
-        case .detailed:
-            return 4
+        switch section {
+        case 0:
+            return 0
+        case 1:
+            return queryParams.count
+        default:
+            return 1
         }
     }
     
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return stateRequest.countSections
+    }
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CreateNewRequestCollectionViewCell.identifier,
-                                                            for: indexPath)
-                as? CreateNewRequestCollectionViewCell else { return UICollectionViewCell() }
         
-        return cell
+        switch indexPath.section {
+        case 0:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
+            return cell
+        default:
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CreateNewRequestCollectionViewCell.identifier,
+                                                                for: indexPath)
+                    as? CreateNewRequestCollectionViewCell else { return UICollectionViewCell() }
+            print(textFromKeyValueField.keys)
+            return cell
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView,
                         viewForSupplementaryElementOfKind kind: String,
                         at indexPath: IndexPath) -> UICollectionReusableView {
         
-        
         if kind == UICollectionView.elementKindSectionFooter {
-            guard let footer = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter,
-                                                                               withReuseIdentifier: CreateNewRequestFooterCollectionView.identifier,
-                                                                               for: indexPath)
-                    as? CreateNewRequestFooterCollectionView else { return UICollectionReusableView() }
-            
-//            footer.addGest÷ureRecognizer(tapOnFooter)
-            return footer
+            switch indexPath.section {
+            case 0:
+                let footer = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter,
+                                                                             withReuseIdentifier: "footer",
+                                                                             for: indexPath)
+                return footer
+            case 1:
+                guard let queryParamsFooter = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter,
+                                                                                   withReuseIdentifier: CreateNewRequestQueryParamsFooterCollectionView.identifier,
+                                                                                   for: indexPath)
+                        as? CreateNewRequestQueryParamsFooterCollectionView else { return UICollectionReusableView() }
+                queryParamsFooter.addParamVCDelegate = self
+    //            footer.addGest÷ureRecognizer(tapOnFooter)
+                return queryParamsFooter
+            default:
+                guard let headersParamsFooter = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter,
+                                                                                   withReuseIdentifier: CreateNewRequestHeadersParamsFooterCollectionView.identifier,
+                                                                                   for: indexPath)
+                        as? CreateNewRequestHeadersParamsFooterCollectionView else { return UICollectionReusableView() }
+//                headersParamsFooter.addParamDelegate = self
+                return headersParamsFooter
+            }
         } else {
             switch indexPath.section {
             case 0:
@@ -153,18 +170,17 @@ extension CreateNewQuickRequestViewController: UICollectionViewDataSource {
                 return startHeader
             default:
                 guard let defaultHeader = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader,
-                                                                                          withReuseIdentifier: CreateNewRequestAnotherHeadersCollectionView.identifier,
+                                                                                          withReuseIdentifier: CreateNewRequestQueryParamsHeaderCollectionView.identifier,
                                                                                           for: indexPath)
-                        as? CreateNewRequestAnotherHeadersCollectionView else { return UICollectionReusableView() }
+                        as? CreateNewRequestQueryParamsHeaderCollectionView else { return UICollectionReusableView() }
                 return defaultHeader
             }
         }
     }
-    
-    
 }
 
-extension CreateNewQuickRequestViewController: UICollectionViewDelegateFlowLayout{
+extension CreateNewQuickRequestViewController: UICollectionViewDelegateFlowLayout {
+    
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         referenceSizeForHeaderInSection section: Int) -> CGSize {
@@ -179,7 +195,23 @@ extension CreateNewQuickRequestViewController: UICollectionViewDelegateFlowLayou
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         referenceSizeForFooterInSection section: Int) -> CGSize {
-        return CGSize(width: view.frame.size.width, height: 60)
+        switch section {
+        case 0:
+            return CGSize(width: view.frame.size.width, height: 0)
+        default:
+            return CGSize(width: view.frame.size.width, height: 60)
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+        switch indexPath.section {
+        case 0:
+            return CGSize(width: view.frame.size.width, height: 0)
+        default:
+            return CGSize(width: view.frame.size.width, height: 0)
+        }
     }
     
 //    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
@@ -190,11 +222,60 @@ extension CreateNewQuickRequestViewController: UICollectionViewDelegateFlowLayou
                         minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 24
     }
-    
+
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 16, left: 0, bottom: 16, right: 0)
     }
+
 }
 
+extension CreateNewQuickRequestViewController: SwitchStateRequestForContextMenuProtocolDelegate,
+                                               ReloadedCollectionForAddParamOrHeaderProtocolDelegate,
+                                               GetTextForKeyAndValueFromCellProtocolDelegate {
+    
+    func getKeyFromTextField(keyTextField: String) -> String {
+        return keyTextField
+    }
+    
+    func getValueFromTextField(valueTextField: String) -> String {
+        return valueTextField
+    }
+    
+//    var keyValueData: (String, String) {
+//        get {
+//
+//        }
+//        set {
+//            self.keyValueData = (getKeyFromTextField(keyTextField: <#T##String#>), getValueFromTextField(valueTextField: <#T##String#>))
+//        }
+//    }
+    
+    func countSectionReload() { createRequestCollectionView.reloadData() }
+       
+    func setupStateRequest(stateRequest value: StateRequest) { self.stateRequest = value }
+    
+    func addCellForCollectionViewAfterAddParam() {
+        
+//        guard let delegateCell = self.getTextFromCellDelegate else { fatalError() }
+//        queryParams.updateValue(delegateCell.getValueFromTextField(), forKey: delegateCell.getKeyFromTextField())
+        print(textFromKeyValueField.keys, ": aye", textFromKeyValueField.values)
+        createRequestCollectionView.performBatchUpdates({ [weak self] in
+//            CATransaction.begin()
+//            CATransaction.setDisableActions(true)
+            
+//            queryExtParams = queryParams
+//            queryExtParams.updateValue(ValueOfQueryParam(value: "58390029"), forKey: KeyOfQueryParam(key: "head")) //add your object to data source first
+//            let indexPath = IndexPath(item: queryParams.count - 1, section: 1)
+//            self?.createRequestCollectionView.insertItems(at: [indexPath])
+            self?.createRequestCollectionView.reloadData()
+//            CATransaction.commit()
+        }, completion: nil)
+    }
+}
+enum WhatAddToRequestEnum {
+    case queryParam
+    case detailedParam
+    case header
+}

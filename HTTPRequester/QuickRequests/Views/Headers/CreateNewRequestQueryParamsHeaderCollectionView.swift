@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class CreateNewRequestAnotherHeadersCollectionView: UICollectionReusableView, IdentifiableProtocol {
+final class CreateNewRequestQueryParamsHeaderCollectionView: UICollectionReusableView, IdentifiableProtocol {
    
     private let containerForViews: UIView = {
         let view = UIView()
